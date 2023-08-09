@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1062792274217",
+    "project_id": "catchtheballoons",
+    "storage_bucket": "catchtheballoons.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1062792274217:android:c97bdf11cb3d379a9d9738",
+        "android_client_info": {
+          "package_name": "com.techstrum.catchtheballoons"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1062792274217-tppov3htud3mhlu5q2k6o3dnk0bnet9o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBf2R50x_NKjjTuCPFdirovrbbO0mPeZrc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1062792274217-tppov3htud3mhlu5q2k6o3dnk0bnet9o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
