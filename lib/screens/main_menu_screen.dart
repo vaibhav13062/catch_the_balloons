@@ -99,7 +99,6 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                         ),
                         InkWell(
                           onTap: () {
-                           
                             Navigator.of(context).pushReplacement(
                               PageRouteBuilder(
                                 pageBuilder:
@@ -188,7 +187,12 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
   }
 
   int getHighestScore() {
-    return LocalData.getInt(DatabaseKeys().HIGH_SCORE);
+    if (LocalData.contains(DatabaseKeys().HIGH_SCORE)) {
+       return LocalData.getInt(DatabaseKeys().HIGH_SCORE);
+    } else {
+      return 0;
+    }
+   
   }
 
   Future<void> showMySettingPopup(BuildContext context) async {

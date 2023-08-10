@@ -200,10 +200,14 @@ class _GameOverScreenState extends State<GameOverScreen> {
     );
   }
 
-  int getHighestScore() {
-    return LocalData.getInt(DatabaseKeys().HIGH_SCORE);
+ int getHighestScore() {
+    if (LocalData.contains(DatabaseKeys().HIGH_SCORE)) {
+       return LocalData.getInt(DatabaseKeys().HIGH_SCORE);
+    } else {
+      return 0;
+    }
+   
   }
-
   void _loadBannerAd() {
     _bannerAd = BannerAd(
       adUnitId: AdsHelper.bannerAdUnitId,
