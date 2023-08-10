@@ -1,20 +1,36 @@
+import 'package:catch_the_balloons/ads/ads_helper.dart';
+import 'package:catch_the_balloons/ads/ads_provider.dart';
 import 'package:catch_the_balloons/game/MainGame.dart';
 import 'package:catch_the_balloons/screens/game_over_screen.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:provider/provider.dart';
 
-
-class GameScreen extends StatelessWidget {
+class GameScreen extends StatefulWidget {
   const GameScreen({super.key});
+
+  @override
+  State<GameScreen> createState() => _GameScreenState();
+}
+
+class _GameScreenState extends State<GameScreen> {
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<AdsProvider>(context, listen: false).loadRewaredAd();
+    Provider.of<AdsProvider>(context, listen: false).loadInterstitialAd();
+  }
 
   @override
   Widget build(BuildContext context) {
     return GameWidget(
       game: MainGame(),
-
       overlayBuilderMap: {
         GameOverScreen.ID: (BuildContext context, MainGame gameRef) =>
-            GameOverScreen(gameRef: gameRef)
+            GameOverScreen(
+              gameRef: gameRef,
+            )
       },
     );
   }

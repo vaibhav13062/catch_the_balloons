@@ -1,3 +1,4 @@
+import 'package:catch_the_balloons/ads/ads_provider.dart';
 import 'package:catch_the_balloons/database/database_keys.dart';
 import 'package:catch_the_balloons/database/local_data.dart';
 import 'package:catch_the_balloons/screens/main_menu_screen.dart';
@@ -8,11 +9,16 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:package_info_plus/package_info_plus.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:provider/provider.dart';
 
+late PackageInfo packageInfo;
 // import 'package:hive_flutter/adapters.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  MobileAds.instance.initialize();
   await Hive.initFlutter();
   await Hive.openBox('DefaultDB');
   if (LocalData.contains(DatabaseKeys().DEVICE_TOKEN)) {
@@ -32,10 +38,16 @@ void main() async {
       createNewUserOnServer(token);
     });
   }
+  packageInfo = await PackageInfo.fromPlatform();
 
-  runApp(const MaterialApp(
-    debugShowCheckedModeBanner: false,
-    home: MainMenuScreen(),
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (_) => AdsProvider()),
+    ],
+    child: const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: MainMenuScreen(),
+    ),
   ));
 }
 
