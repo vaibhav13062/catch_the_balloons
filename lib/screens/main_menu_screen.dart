@@ -6,6 +6,7 @@ import 'package:catch_the_balloons/database/database_keys.dart';
 import 'package:catch_the_balloons/database/local_data.dart';
 import 'package:catch_the_balloons/screens/game_screen.dart';
 import 'package:catch_the_balloons/ui%20elements/settings_popup.dart';
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -98,6 +99,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                         ),
                         InkWell(
                           onTap: () {
+                           
                             Navigator.of(context).pushReplacement(
                               PageRouteBuilder(
                                 pageBuilder:

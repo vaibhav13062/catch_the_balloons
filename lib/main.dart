@@ -6,6 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -20,7 +21,15 @@ void main() async {
   await Firebase.initializeApp();
   MobileAds.instance.initialize();
   await Hive.initFlutter();
+   FlameAudio.bgm.initialize();
   await Hive.openBox('DefaultDB');
+  await FlameAudio.audioCache.loadAll([
+    'background-music.mp3',
+    'catch-balloon.mp3',
+    'game-over.mp3',
+    'catch-missed.mp3'
+  ]);
+
   if (LocalData.contains(DatabaseKeys().DEVICE_TOKEN)) {
     var token = LocalData.getString(DatabaseKeys().DEVICE_TOKEN);
     if (kDebugMode) {

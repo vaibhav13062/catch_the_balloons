@@ -5,9 +5,12 @@ import 'package:catch_the_balloons/components/background_component.dart';
 import 'package:catch_the_balloons/components/character_component.dart';
 import 'package:catch_the_balloons/components/falling_component.dart';
 import 'package:catch_the_balloons/components/heart_component.dart';
+import 'package:catch_the_balloons/database/database_keys.dart';
+import 'package:catch_the_balloons/database/local_data.dart';
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 import 'package:flame/palette.dart';
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -44,6 +47,14 @@ class MainGame extends FlameGame with HasCollisionDetection {
     add(_scoreText);
     add(HeartComponent());
 
+    if (LocalData.contains(DatabaseKeys().MUSIC)) {
+      if (LocalData.getBool(DatabaseKeys().MUSIC)) {
+        FlameAudio.bgm.play('background-music.mp3');
+      }
+    } else {
+      FlameAudio.bgm.play('background-music.mp3');
+    }
+
     _timer = Timer(30, repeat: true, onTick: () {
       if (velocity < 14) {
         velocity = velocity + 0.5;
@@ -68,7 +79,7 @@ class MainGame extends FlameGame with HasCollisionDetection {
   }
 
   void replay() {
-    missedObjects = 0;  
+    missedObjects = 0;
   }
 
   void reset() {

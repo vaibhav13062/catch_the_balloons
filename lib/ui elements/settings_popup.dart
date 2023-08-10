@@ -1,4 +1,3 @@
-
 import 'package:catch_the_balloons/constants/colors.dart';
 import 'package:catch_the_balloons/database/database_keys.dart';
 import 'package:catch_the_balloons/database/local_data.dart';
@@ -50,6 +49,33 @@ class _SettingsPopupState extends State<SettingsPopup> {
                 borderRadius: BorderRadius.circular(20),
                 color: GameColors.forthColor),
             child: Column(children: [
+              Row(
+                children: [
+                  const Icon(Icons.volume_up_rounded),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  Text(
+                    "Music",
+                    style: GoogleFonts.montserrat(
+                        textStyle: const TextStyle(
+                            fontSize: 17,
+                            fontWeight: FontWeight.w600,
+                            color: GameColors.blackColor)),
+                  ),
+                  const Spacer(),
+                  Switch(
+                    value: getIsMusicOn(),
+                    onChanged: (d) {
+                      setState(() {
+                        LocalData.saveBool(DatabaseKeys().MUSIC, d);
+                      });
+                    },
+                    activeColor: GameColors.firstColor,
+                  ),
+                ],
+              ),
+              const Divider(),
               Row(
                 children: [
                   const Icon(Icons.volume_up_rounded),
@@ -169,6 +195,14 @@ class _SettingsPopupState extends State<SettingsPopup> {
     var isOn = true;
     if (LocalData.contains(DatabaseKeys().SOUND)) {
       isOn = LocalData.getBool(DatabaseKeys().SOUND);
+    }
+    return isOn;
+  }
+
+  bool getIsMusicOn() {
+    var isOn = true;
+    if (LocalData.contains(DatabaseKeys().MUSIC)) {
+      isOn = LocalData.getBool(DatabaseKeys().MUSIC);
     }
     return isOn;
   }

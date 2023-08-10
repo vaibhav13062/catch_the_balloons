@@ -5,6 +5,7 @@ import 'package:catch_the_balloons/game/main_game.dart';
 import 'package:catch_the_balloons/screens/game_over_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flame/components.dart';
+import 'package:flame_audio/flame_audio.dart';
 
 enum HeartState {
   five,
@@ -58,7 +59,17 @@ class HeartComponent extends SpriteGroupComponent<HeartState>
       current = HeartState.one;
     } else if (gameRef.missedObjects >= 5) {
       current = HeartState.zero;
+      if (LocalData.contains(DatabaseKeys().SOUND)) {
+        if (LocalData.getBool(DatabaseKeys().SOUND)) {
+          FlameAudio.play('game-over.mp3');
+        }
+      } else {
+        FlameAudio.play('game-over.mp3');
+      }
+
+      FlameAudio.bgm.stop();
       gameRef.pauseEngine();
+
       gameRef.overlays.add(GameOverScreen.ID);
       if (LocalData.contains(DatabaseKeys().HIGH_SCORE)) {
         if (LocalData.getInt(DatabaseKeys().HIGH_SCORE) <= gameRef.gameScore) {

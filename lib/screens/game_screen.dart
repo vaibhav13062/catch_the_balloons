@@ -18,6 +18,7 @@ class _GameScreenState extends State<GameScreen> {
     super.initState();
     Provider.of<AdsProvider>(context, listen: false).loadRewaredAd();
     Provider.of<AdsProvider>(context, listen: false).loadInterstitialAd();
+    
   }
 
   @override

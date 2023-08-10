@@ -7,6 +7,7 @@ import 'package:catch_the_balloons/database/database_keys.dart';
 import 'package:catch_the_balloons/database/local_data.dart';
 import 'package:catch_the_balloons/game/main_game.dart';
 import 'package:catch_the_balloons/screens/main_menu_screen.dart';
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -106,6 +107,13 @@ class _GameOverScreenState extends State<GameOverScreen> {
                           widget.gameRef.overlays.remove(GameOverScreen.ID);
                           widget.gameRef.replay();
                           widget.gameRef.resumeEngine();
+                          if (LocalData.contains(DatabaseKeys().MUSIC)) {
+                            if (LocalData.getBool(DatabaseKeys().MUSIC)) {
+                              FlameAudio.bgm.play('background-music.mp3');
+                            }
+                          } else {
+                            FlameAudio.bgm.play('background-music.mp3');
+                          }
                           Provider.of<AdsProvider>(context, listen: false)
                               .rewardedAd
                               ?.dispose();
@@ -144,8 +152,9 @@ class _GameOverScreenState extends State<GameOverScreen> {
                     visible: showHomeScreenButton,
                     child: InkWell(
                       onTap: () async {
-
-                          await  Provider.of<AdsProvider>(context,listen: false).interstitialAd?.show();
+                        await Provider.of<AdsProvider>(context, listen: false)
+                            .interstitialAd
+                            ?.show();
 
                         widget.gameRef.overlays.remove(GameOverScreen.ID);
                         widget.gameRef.reset();

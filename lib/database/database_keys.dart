@@ -3,5 +3,6 @@ class DatabaseKeys {
   String userID = "userID";
   String HIGH_SCORE = "highScore";
   String SOUND = "isSound";
+  String MUSIC = "isMusic";
 
 }
