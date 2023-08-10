@@ -1,11 +1,12 @@
 import 'package:catch_the_balloons/constants/globals.dart';
-import 'package:catch_the_balloons/game/MainGame.dart';
+import 'package:catch_the_balloons/game/main_game.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 
 class CharacterComponent extends SpriteComponent
     with HasGameRef<MainGame>, DragCallbacks {
+  // ignore: unnecessary_overrides
   @override
   void onDragStart(DragStartEvent event) {
     super.onDragStart(event);
@@ -19,6 +20,7 @@ class CharacterComponent extends SpriteComponent
     }
   }
 
+  // ignore: unnecessary_overrides
   @override
   void onDragEnd(DragEndEvent event) {
     super.onDragEnd(event);

@@ -9,8 +9,8 @@ class SmallSizedButton extends StatelessWidget {
   final double? fontSize;
   final FontWeight? fontWeight;
   final EdgeInsetsGeometry? padding;
-  SmallSizedButton(
-      {required this.text,
+  const SmallSizedButton(
+      {super.key, required this.text,
       this.textColor,
       this.fontWeight,
       this.fontSize,
@@ -32,7 +32,7 @@ class SmallSizedButton extends StatelessWidget {
           child: InkWell(
             onTap: function,
             child: Container(
-              padding: padding ?? EdgeInsets.all(10),
+              padding: padding ?? const EdgeInsets.all(10),
               child: Text(
                 text!,
                 style: GoogleFonts.montserrat(

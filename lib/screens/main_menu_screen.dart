@@ -124,30 +124,32 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                                       color: GameColors.greyColor)),
                             ),
                           ),
-                        )
-                     ,SizedBox(height: 20,),
-                      Visibility(
-                    visible: LocalData.contains(DatabaseKeys().HIGH_SCORE),
-                    child: Text(
-                      "HIGHEST SCORE: ${getHighestScore()}",
-                      style: GoogleFonts.montserrat(
-                        textStyle: const TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w700,
-                            color: GameColors.blackColor),
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                     
-                     ]),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Visibility(
+                          visible:
+                              LocalData.contains(DatabaseKeys().HIGH_SCORE),
+                          child: Text(
+                            "HIGHEST SCORE: ${getHighestScore()}",
+                            style: GoogleFonts.montserrat(
+                              textStyle: const TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w700,
+                                  color: GameColors.blackColor),
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ]),
                   const Spacer(
                     flex: 10,
                   ),
                   if (_isBannerAdReady)
                     Align(
                       alignment: Alignment.bottomCenter,
-                      child: Container(
+                      child: SizedBox(
                         width: _bannerAd.size.width.toDouble(),
                         height: _bannerAd.size.height.toDouble(),
                         child: AdWidget(ad: _bannerAd),
@@ -165,7 +167,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
   void _loadBannerAd() {
     _bannerAd = BannerAd(
       adUnitId: AdsHelper.bannerAdUnitId,
-      request: AdRequest(),
+      request: const AdRequest(),
       size: AdSize.largeBanner,
       listener: BannerAdListener(
         onAdLoaded: (_) {
@@ -183,7 +185,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
     _bannerAd.load();
   }
 
-   int getHighestScore() {
+  int getHighestScore() {
     return LocalData.getInt(DatabaseKeys().HIGH_SCORE);
   }
 

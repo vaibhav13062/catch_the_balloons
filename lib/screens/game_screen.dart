@@ -1,10 +1,8 @@
-import 'package:catch_the_balloons/ads/ads_helper.dart';
 import 'package:catch_the_balloons/ads/ads_provider.dart';
-import 'package:catch_the_balloons/game/MainGame.dart';
+import 'package:catch_the_balloons/game/main_game.dart';
 import 'package:catch_the_balloons/screens/game_over_screen.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 
 class GameScreen extends StatefulWidget {

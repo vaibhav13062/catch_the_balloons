@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:catch_the_balloons/components/character_component.dart';
-import 'package:catch_the_balloons/game/MainGame.dart';
+import 'package:catch_the_balloons/game/main_game.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 

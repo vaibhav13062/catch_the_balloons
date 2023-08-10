@@ -94,7 +94,7 @@ class LocalData {
 
   static Future saveJson(String key, Map<String, dynamic> value) async {
     var box = Hive.box('DefaultDB');
-    JsonEncoder encoder = JsonEncoder.withIndent('  ');
+    JsonEncoder encoder = const JsonEncoder.withIndent('  ');
     return box.put(key, encoder.convert(value));
   }
 
@@ -102,7 +102,7 @@ class LocalData {
     var box = Hive.box('DefaultDB');
     Map<String, dynamic> value = {};
     if (box.containsKey(key)) {
-      value = JsonDecoder().convert(box.get(key));
+      value = const JsonDecoder().convert(box.get(key));
     }
     return value;
   }

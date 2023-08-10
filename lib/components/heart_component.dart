@@ -1,7 +1,7 @@
 import 'package:catch_the_balloons/constants/globals.dart';
 import 'package:catch_the_balloons/database/database_keys.dart';
 import 'package:catch_the_balloons/database/local_data.dart';
-import 'package:catch_the_balloons/game/MainGame.dart';
+import 'package:catch_the_balloons/game/main_game.dart';
 import 'package:catch_the_balloons/screens/game_over_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flame/components.dart';

@@ -1,7 +1,5 @@
 import 'dart:io';
 
-import 'package:flutter/foundation.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class AdsHelper {
   
@@ -12,7 +10,7 @@ class AdsHelper {
     } else if (Platform.isIOS) {
       return 'ca-app-pub-6966853236033666/9358212436';
     } else {
-      throw new UnsupportedError('Unsupported platform');
+      throw UnsupportedError('Unsupported platform');
     }
   }
 
@@ -22,7 +20,7 @@ class AdsHelper {
     } else if (Platform.isIOS) {
       return 'ca-app-pub-6966853236033666~5519039771';
     } else {
-      throw new UnsupportedError('Unsupported platform');
+      throw UnsupportedError('Unsupported platform');
     }
   }
 
@@ -32,7 +30,7 @@ class AdsHelper {
     } else if (Platform.isIOS) {
       return 'ca-app-pub-6966853236033666/1503773146';
     } else {
-      throw new UnsupportedError('Unsupported platform');
+      throw UnsupportedError('Unsupported platform');
     }
   }
 }

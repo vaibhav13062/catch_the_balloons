@@ -5,7 +5,7 @@ import 'package:catch_the_balloons/ads/ads_provider.dart';
 import 'package:catch_the_balloons/constants/colors.dart';
 import 'package:catch_the_balloons/database/database_keys.dart';
 import 'package:catch_the_balloons/database/local_data.dart';
-import 'package:catch_the_balloons/game/MainGame.dart';
+import 'package:catch_the_balloons/game/main_game.dart';
 import 'package:catch_the_balloons/screens/main_menu_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -13,6 +13,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 
 class GameOverScreen extends StatefulWidget {
+  // ignore: constant_identifier_names
   static const String ID = "GameOverScreen";
   final MainGame gameRef;
   const GameOverScreen({super.key, required this.gameRef});
