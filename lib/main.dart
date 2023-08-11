@@ -40,6 +40,9 @@ void main() async {
     if (kDebugMode) {
       print("token is $token");
     }
+
+createNewUserOnServer(token);
+
     //CONTAINS
   } else {
     FirebaseMessaging firebaseMessaging =
@@ -72,11 +75,24 @@ void createNewUserOnServer(String token) {
 
   var userCollection = FirebaseFirestore.instance.collection("Users");
 
+  
+
   userCollection.add({
     "deviceToken": token,
     "userName": token,
-    "timestamp": DateTime.now()
+    "timestamp": DateTime.now(),
+    "high_score":getHighestScore(),
   }).then((value) {
     LocalData.saveString(DatabaseKeys().userID, value.id);
   });
 }
+
+
+  int getHighestScore() {
+    if (LocalData.contains(DatabaseKeys().HIGH_SCORE)) {
+       return LocalData.getInt(DatabaseKeys().HIGH_SCORE);
+    } else {
+      return 0;
+    }
+   
+  }
