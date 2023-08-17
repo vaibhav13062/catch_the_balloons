@@ -1,12 +1,12 @@
 import 'dart:ui';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:catch_the_balloons/ads/ads_helper.dart';
 import 'package:catch_the_balloons/constants/colors.dart';
 import 'package:catch_the_balloons/database/database_keys.dart';
 import 'package:catch_the_balloons/database/local_data.dart';
 import 'package:catch_the_balloons/screens/game_screen.dart';
 import 'package:catch_the_balloons/ui%20elements/settings_popup.dart';
-import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -44,108 +44,120 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
           child: SizedBox(
             width: double.maxFinite,
             child: SafeArea(
-              child: Column(
+              child: Stack(
+                alignment: Alignment.center,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      InkWell(
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: InkWell(
                         onTap: () {
                           //SETTINGS POPUP
                           showMySettingPopup(context);
                         },
                         child: Container(
                           padding: const EdgeInsets.all(5),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(40),
-                              border: Border.all(
-                                  color: GameColors.blackColor, width: 4)),
-                          child: const Icon(Icons.settings),
+                          child: Image.asset(
+                            "assets/images/" + Globals.setting_icon,
+                            height: 40,
+                            width: 40,
+                          ),
                         ),
                       ),
-                      const SizedBox(
-                        width: 20,
-                      ),
-                    ],
+                    ),
                   ),
-                  const Spacer(
-                    flex: 8,
-                  ),
-                  Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "CATCH THE",
-                          style: GoogleFonts.shojumaru(
-                            textStyle: const TextStyle(
-                                fontSize: 50,
-                                fontWeight: FontWeight.w700,
-                                color: GameColors.firstColor),
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                        Text(
-                          "BALLOONS",
-                          style: GoogleFonts.shojumaru(
-                            textStyle: const TextStyle(
-                                fontSize: 40,
-                                fontWeight: FontWeight.w700,
-                                color: GameColors.secondColor),
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                        const SizedBox(
-                          height: 30,
-                        ),
-                        InkWell(
-                          onTap: () {
-                            Navigator.of(context).pushReplacement(
-                              PageRouteBuilder(
-                                pageBuilder:
-                                    (context, animation1, animation2) =>
-                                        const GameScreen(),
-                                transitionDuration: Duration.zero,
-                                reverseTransitionDuration: Duration.zero,
-                              ),
-                            );
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 50, vertical: 15),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(40),
-                                border: Border.all(
-                                    color: GameColors.greyColor, width: 4)),
-                            child: Text(
-                              "PLAY",
-                              style: GoogleFonts.montserrat(
-                                  textStyle: const TextStyle(
-                                      fontSize: 25,
-                                      fontWeight: FontWeight.w700,
-                                      color: GameColors.greyColor)),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Visibility(
-                          visible:
-                              LocalData.contains(DatabaseKeys().HIGH_SCORE),
-                          child: Text(
-                            "HIGHEST SCORE: ${getHighestScore()}",
-                            style: GoogleFonts.montserrat(
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          AutoSizeText(
+                            "CATCH THE",
+                            maxLines: 1,
+                            maxFontSize: 50,
+                            style: GoogleFonts.shojumaru(
                               textStyle: const TextStyle(
-                                  fontSize: 18,
+                                  shadows: [
+                                    Shadow(
+                                        blurRadius: 3,
+                                        offset: Offset(3, 4),
+                                        color: GameColors.greyColor),
+                                  ],
+                                  fontSize: 50,
                                   fontWeight: FontWeight.w700,
-                                  color: GameColors.blackColor),
+                                  color: GameColors.firstColor),
                             ),
                             textAlign: TextAlign.center,
                           ),
-                        ),
-                      ]),
-                  const Spacer(
-                    flex: 10,
+                          AutoSizeText(
+                            "BALLOONS",
+                            maxLines: 1,
+                            maxFontSize: 40,
+                            style: GoogleFonts.shojumaru(
+                              textStyle: const TextStyle(
+                                  shadows: [
+                                    Shadow(
+                                        blurRadius: 3,
+                                        offset: Offset(3, 4),
+                                        color: GameColors.greyColor),
+                                  ],
+                                  fontSize: 40,
+                                  fontWeight: FontWeight.w700,
+                                  color: GameColors.secondColor),
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          const SizedBox(
+                            height: 30,
+                          ),
+                          InkWell(
+                            onTap: () {
+                              Navigator.of(context).pushReplacement(
+                                PageRouteBuilder(
+                                  pageBuilder:
+                                      (context, animation1, animation2) =>
+                                          const GameScreen(),
+                                  transitionDuration: Duration.zero,
+                                  reverseTransitionDuration: Duration.zero,
+                                ),
+                              );
+                            },
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 50, vertical: 15),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(40),
+                                  border: Border.all(
+                                      color: GameColors.greyColor, width: 4)),
+                              child: Text(
+                                "PLAY",
+                                style: GoogleFonts.montserrat(
+                                    textStyle: const TextStyle(
+                                        fontSize: 25,
+                                        fontWeight: FontWeight.w700,
+                                        color: GameColors.greyColor)),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Visibility(
+                            visible:
+                                LocalData.contains(DatabaseKeys().HIGH_SCORE),
+                            child: Text(
+                              "HIGHEST SCORE: ${getHighestScore()}",
+                              style: GoogleFonts.montserrat(
+                                textStyle: const TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w700,
+                                    color: GameColors.blackColor),
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ]),
                   ),
                   if (_isBannerAdReady)
                     Align(
@@ -188,11 +200,10 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
 
   int getHighestScore() {
     if (LocalData.contains(DatabaseKeys().HIGH_SCORE)) {
-       return LocalData.getInt(DatabaseKeys().HIGH_SCORE);
+      return LocalData.getInt(DatabaseKeys().HIGH_SCORE);
     } else {
       return 0;
     }
-   
   }
 
   Future<void> showMySettingPopup(BuildContext context) async {

@@ -13,32 +13,24 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 
-class GameOverScreen extends StatefulWidget {
+class GamePauseScreen extends StatefulWidget {
   // ignore: constant_identifier_names
-  static const String ID = "GameOverScreen";
+  static const String ID = "GamePauseScreen";
   final MainGame gameRef;
-  const GameOverScreen({super.key, required this.gameRef});
+  const GamePauseScreen({super.key, required this.gameRef});
 
   @override
-  State<GameOverScreen> createState() => _GameOverScreenState();
+  State<GamePauseScreen> createState() => _GamePauseScreenState();
 }
 
-class _GameOverScreenState extends State<GameOverScreen> {
+class _GamePauseScreenState extends State<GamePauseScreen> {
   late BannerAd _bannerAd;
   bool _isBannerAdReady = false;
-  bool _adWatched = false;
 
-  bool showHomeScreenButton = false;
   @override
   void initState() {
     super.initState();
-
     _loadBannerAd();
-    Future.delayed(const Duration(seconds: 3), () {
-      setState(() {
-        showHomeScreenButton = true;
-      });
-    });
   }
 
   @override
@@ -56,9 +48,8 @@ class _GameOverScreenState extends State<GameOverScreen> {
             child: Stack(
               alignment: Alignment.center,
               children: [
-               
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal:10.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
                     Visibility(
                       visible: LocalData.contains(DatabaseKeys().HIGH_SCORE),
@@ -87,17 +78,17 @@ class _GameOverScreenState extends State<GameOverScreen> {
                       height: 20,
                     ),
                     AutoSizeText(
-                      "GAME OVER",
+                      "GAME PAUSED",
                       maxLines: 2,
                       maxFontSize: 50,
                       style: GoogleFonts.shojumaru(
                         textStyle: const TextStyle(
-                           shadows: [
-                                    Shadow(
-                                        blurRadius: 3,
-                                        offset: Offset(3, 4),
-                                        color: GameColors.greyColor),
-                                  ],
+                            shadows: [
+                              Shadow(
+                                  blurRadius: 3,
+                                  offset: Offset(3, 4),
+                                  color: GameColors.greyColor),
+                            ],
                             fontSize: 50,
                             fontWeight: FontWeight.w700,
                             color: GameColors.secondColor),
@@ -107,47 +98,13 @@ class _GameOverScreenState extends State<GameOverScreen> {
                     const SizedBox(
                       height: 30,
                     ),
-                    Text(
-                      _adWatched ? "Reward Earned" : "Watch the Ad to Resume",
-                      style: GoogleFonts.montserrat(
-                          textStyle: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600,
-                              color: GameColors.greyColor)),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
                     Visibility(
                       visible: Provider.of<AdsProvider>(context, listen: false)
                               .rewardedAd !=
                           null,
                       child: InkWell(
                         onTap: () {
-                          if (_adWatched) {
-                            widget.gameRef.overlays.remove(GameOverScreen.ID);
-                            widget.gameRef.replay();
-                            setState(() {
-                              _adWatched = false;
-                            });
-                          } else {
-                            Provider.of<AdsProvider>(context, listen: false)
-                                .rewardedAd
-                                ?.show(onUserEarnedReward: (AdWithoutView ad,
-                                    RewardItem rewardItem) async {
-                              setState(() {
-                                _adWatched = true;
-                              });
-                
-                              await Provider.of<AdsProvider>(context,
-                                      listen: false)
-                                  .rewardedAd
-                                  ?.dispose();
-                              Provider.of<AdsProvider>(context, listen: false)
-                                  .loadRewardedAd();
-                              print("REARD AWARDED");
-                            });
-                          }
+                          widget.gameRef.resume();
                 
                           // Navigator.of(context).pushReplacement(
                           //     MaterialPageRoute(builder: (BuildContext context) {
@@ -162,7 +119,7 @@ class _GameOverScreenState extends State<GameOverScreen> {
                               border: Border.all(
                                   color: GameColors.greyColor, width: 4)),
                           child: Text(
-                            _adWatched ? "CONTINUE" : "WATCH AD",
+                            "RESUME",
                             style: GoogleFonts.montserrat(
                                 textStyle: const TextStyle(
                                     fontSize: 25,
@@ -175,38 +132,35 @@ class _GameOverScreenState extends State<GameOverScreen> {
                     const SizedBox(
                       height: 15,
                     ),
-                    Visibility(
-                      visible: showHomeScreenButton,
-                      child: InkWell(
-                        onTap: () async {
-                          await Provider.of<AdsProvider>(context, listen: false)
-                              .interstitialAd
-                              ?.show();
-                          Provider.of<AdsProvider>(context, listen: false)
-                              .interstitialAd
-                              ?.dispose();
-                          widget.gameRef.overlays.remove(GameOverScreen.ID);
-                          widget.gameRef.reset();
-                          Navigator.of(context).pushReplacement(
-                            PageRouteBuilder(
-                              pageBuilder: (context, animation1, animation2) =>
-                                  const MainMenuScreen(),
-                              transitionDuration: Duration.zero,
-                              reverseTransitionDuration: Duration.zero,
-                            ),
-                          );
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 50, vertical: 15),
-                          child: Text(
-                            "Go to Home Screen",
-                            style: GoogleFonts.montserrat(
-                                textStyle: const TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w700,
-                                    color: GameColors.blackColor)),
+                    InkWell(
+                      onTap: () async {
+                        await Provider.of<AdsProvider>(context, listen: false)
+                            .interstitialAd
+                            ?.show();
+                        Provider.of<AdsProvider>(context, listen: false)
+                            .interstitialAd
+                            ?.dispose();
+                        widget.gameRef.overlays.remove(GamePauseScreen.ID);
+                        widget.gameRef.reset();
+                        Navigator.of(context).pushReplacement(
+                          PageRouteBuilder(
+                            pageBuilder: (context, animation1, animation2) =>
+                                const MainMenuScreen(),
+                            transitionDuration: Duration.zero,
+                            reverseTransitionDuration: Duration.zero,
                           ),
+                        );
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 50, vertical: 15),
+                        child: Text(
+                          "Go to Home Screen",
+                          style: GoogleFonts.montserrat(
+                              textStyle: const TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w700,
+                                  color: GameColors.blackColor)),
                         ),
                       ),
                     )

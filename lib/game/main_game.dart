@@ -5,8 +5,10 @@ import 'package:catch_the_balloons/components/background_component.dart';
 import 'package:catch_the_balloons/components/character_component.dart';
 import 'package:catch_the_balloons/components/falling_component.dart';
 import 'package:catch_the_balloons/components/heart_component.dart';
+import 'package:catch_the_balloons/components/pause_button_component.dart';
 import 'package:catch_the_balloons/database/database_keys.dart';
 import 'package:catch_the_balloons/database/local_data.dart';
+import 'package:catch_the_balloons/screens/game_pause_screen.dart';
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 import 'package:flame/palette.dart';
@@ -28,10 +30,11 @@ class MainGame extends FlameGame with HasCollisionDetection {
     await super.onLoad();
 
     add(BackgroundComponent());
+    add(PauseButtonComponent());
     add(CharacterComponent());
 
     for (int i = 0; i < objectsCount; i++) {
-      add(FallingComponent());
+      addFallingComponent();
     }
 
     _scoreText = TextComponent(
@@ -79,7 +82,47 @@ class MainGame extends FlameGame with HasCollisionDetection {
   }
 
   void replay() {
+    children.forEach((element) {
+      if (element is FallingComponent) {
+        element.removeFromParent();
+      }
+    });
     missedObjects = 0;
+    resumeEngine();
+
+    for (int i = 0; i < objectsCount; i++) {
+      addFallingComponent();
+    }
+
+    if (LocalData.contains(DatabaseKeys().MUSIC)) {
+      if (LocalData.getBool(DatabaseKeys().MUSIC)) {
+        FlameAudio.bgm.play('background-music.mp3');
+      }
+    } else {
+      FlameAudio.bgm.play('background-music.mp3');
+    }
+  }
+
+  void addFallingComponent() async {
+    add(FallingComponent());
+  }
+
+  void pauseGame() {
+    pauseEngine();
+    FlameAudio.bgm.stop();
+    overlays.add(GamePauseScreen.ID);
+  }
+
+  void resume() {
+    overlays.remove(GamePauseScreen.ID);
+    if (LocalData.contains(DatabaseKeys().MUSIC)) {
+      if (LocalData.getBool(DatabaseKeys().MUSIC)) {
+        FlameAudio.bgm.play('background-music.mp3');
+      }
+    } else {
+      FlameAudio.bgm.play('background-music.mp3');
+    }
+    resumeEngine();
   }
 
   void reset() {

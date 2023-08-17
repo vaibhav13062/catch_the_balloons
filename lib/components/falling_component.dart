@@ -41,7 +41,7 @@ class FallingComponent extends SpriteComponent
     height = gameRef.size.x / 12;
     width = gameRef.size.x / 12;
 
-    position = Vector2(_getRandomXPos(), 50);
+    position = Vector2(_getRandomXPos(), _getRandomYPos());
 
     add(CircleHitbox());
   }
@@ -68,6 +68,11 @@ class FallingComponent extends SpriteComponent
 
   double _getRandomXPos() {
     double x = random.nextInt(gameRef.size.x.toInt() - 30).toDouble();
+    return x;
+  }
+
+   double _getRandomYPos() {
+    double x = random.nextInt(80).toDouble();
     return x;
   }
 }

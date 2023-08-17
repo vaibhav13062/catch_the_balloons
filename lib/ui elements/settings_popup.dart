@@ -1,4 +1,5 @@
 import 'package:catch_the_balloons/constants/colors.dart';
+import 'package:catch_the_balloons/constants/globals.dart';
 import 'package:catch_the_balloons/database/database_keys.dart';
 import 'package:catch_the_balloons/database/local_data.dart';
 import 'package:catch_the_balloons/main.dart';
@@ -35,12 +36,22 @@ class _SettingsPopupState extends State<SettingsPopup> {
                         fontWeight: FontWeight.w600)),
               ),
               Align(
-                  alignment: Alignment.centerRight,
-                  child: IconButton(
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                      icon: const Icon(Icons.clear_rounded))),
+                alignment: Alignment.centerRight,
+
+                child: InkWell(
+                    onTap: () {
+                       Navigator.of(context).pop();
+                    },
+                    child: Padding(
+                      padding: EdgeInsets.all(5),
+                      child: Image.asset(
+                        "assets/images/" + Globals.cross_icon,
+                        height: 40,
+                        width: 40,
+                      ),
+                    )),
+                
+              ),
             ],
           ),
           Container(
@@ -51,7 +62,11 @@ class _SettingsPopupState extends State<SettingsPopup> {
             child: Column(children: [
               Row(
                 children: [
-                  const Icon(Icons.volume_up_rounded),
+                  Image.asset(
+                    "assets/images/" + Globals.music_icon,
+                    height: 40,
+                    width: 40,
+                  ),
                   const SizedBox(
                     width: 5,
                   ),
@@ -78,7 +93,11 @@ class _SettingsPopupState extends State<SettingsPopup> {
               const Divider(),
               Row(
                 children: [
-                  const Icon(Icons.volume_up_rounded),
+                  Image.asset(
+                    "assets/images/" + Globals.sound_icon,
+                    height: 40,
+                    width: 40,
+                  ),
                   const SizedBox(
                     width: 5,
                   ),
@@ -113,7 +132,11 @@ class _SettingsPopupState extends State<SettingsPopup> {
                 },
                 child: Row(
                   children: [
-                    const Icon(Icons.edit_document),
+                    Image.asset(
+                      "assets/images/" + Globals.terms_icon,
+                      height: 40,
+                      width: 40,
+                    ),
                     const SizedBox(
                       width: 5,
                     ),
@@ -138,11 +161,15 @@ class _SettingsPopupState extends State<SettingsPopup> {
               InkWell(
                 onTap: () {
                   launchUrl(Uri.parse(
-                      "https://techstrum.com/privacy-policy/index.html"));
+                      "https://techstrum.com/catchTheBallons/"));
                 },
                 child: Row(
                   children: [
-                    const Icon(Icons.privacy_tip_rounded),
+                    Image.asset(
+                      "assets/images/" + Globals.privacy_icon,
+                      height: 40,
+                      width: 40,
+                    ),
                     const SizedBox(
                       width: 5,
                     ),

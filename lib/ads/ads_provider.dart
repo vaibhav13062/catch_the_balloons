@@ -14,7 +14,6 @@ class AdsProvider extends ChangeNotifier {
           // Called when an ad is successfully received.
           onAdLoaded: (ad) {
             debugPrint('$ad loaded.');
-            // Keep a reference to the ad so you can show it later.
             interstitialAd = ad;
             notifyListeners();
           },
@@ -25,7 +24,7 @@ class AdsProvider extends ChangeNotifier {
         ));
   }
 
-  void loadRewaredAd() {
+  void loadRewardedAd() {
     RewardedAd.load(
         adUnitId: AdsHelper.rewardAdUnitId,
         request: const AdRequest(),
@@ -33,7 +32,6 @@ class AdsProvider extends ChangeNotifier {
           // Called when an ad is successfully received.
           onAdLoaded: (ad) {
             debugPrint('$ad loaded.');
-            // Keep a reference to the ad so you can show it later.
             rewardedAd = ad;
             notifyListeners();
           },
