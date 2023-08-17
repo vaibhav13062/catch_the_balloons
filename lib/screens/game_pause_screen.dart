@@ -98,34 +98,29 @@ class _GamePauseScreenState extends State<GamePauseScreen> {
                     const SizedBox(
                       height: 30,
                     ),
-                    Visibility(
-                      visible: Provider.of<AdsProvider>(context, listen: false)
-                              .rewardedAd !=
-                          null,
-                      child: InkWell(
-                        onTap: () {
-                          widget.gameRef.resume();
+                    InkWell(
+                      onTap: () {
+                        widget.gameRef.resume();
                 
-                          // Navigator.of(context).pushReplacement(
-                          //     MaterialPageRoute(builder: (BuildContext context) {
-                          //   return const GameScreen();
-                          // }));
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 50, vertical: 15),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(40),
-                              border: Border.all(
-                                  color: GameColors.greyColor, width: 4)),
-                          child: Text(
-                            "RESUME",
-                            style: GoogleFonts.montserrat(
-                                textStyle: const TextStyle(
-                                    fontSize: 25,
-                                    fontWeight: FontWeight.w700,
-                                    color: GameColors.greyColor)),
-                          ),
+                        // Navigator.of(context).pushReplacement(
+                        //     MaterialPageRoute(builder: (BuildContext context) {
+                        //   return const GameScreen();
+                        // }));
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 50, vertical: 15),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(40),
+                            border: Border.all(
+                                color: GameColors.greyColor, width: 4)),
+                        child: Text(
+                          "RESUME",
+                          style: GoogleFonts.montserrat(
+                              textStyle: const TextStyle(
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.w700,
+                                  color: GameColors.greyColor)),
                         ),
                       ),
                     ),
