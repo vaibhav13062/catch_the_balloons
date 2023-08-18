@@ -9,4 +9,5 @@ class GameColors {
   static const Color forthColor = Color.fromARGB(255, 246, 216, 23);
   static const Color greyColor = Color.fromARGB(255, 43, 43, 43);
   static const Color blackColor = Color.fromARGB(255, 0, 0, 0);
+  static const Color cyanColor = Color.fromARGB(255, 65, 207, 235);
 }

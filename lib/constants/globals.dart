@@ -14,6 +14,9 @@ class Globals{
   static const String sound_icon ='sound_icon.png';
   static const String terms_icon ='terms_icon.png';
   static const String cross_icon ='cross_icon.png';
+  static const String edit_icon ='edit_icon.png';
+  static const String user_icon ='user_icon.png';
+  static const String leaderboard_icon ='leaderboard_icon.png';
 
 
 

@@ -1,6 +1,7 @@
 import 'package:catch_the_balloons/ads/ads_provider.dart';
 import 'package:catch_the_balloons/database/database_keys.dart';
 import 'package:catch_the_balloons/database/local_data.dart';
+import 'package:catch_the_balloons/main_utils.dart';
 import 'package:catch_the_balloons/screens/main_menu_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -41,18 +42,18 @@ void main() async {
       print("token is $token");
     }
 
-    createNewUserOnServer(token);
+    await createNewUserOnServer(token);
 
     //CONTAINS
   } else {
     FirebaseMessaging firebaseMessaging =
         FirebaseMessaging.instance; // Change here
-    firebaseMessaging.getToken().then((token) {
+    await firebaseMessaging.getToken().then((token) async {
       if (kDebugMode) {
         print("token is $token");
       }
       LocalData.saveString(DatabaseKeys().DEVICE_TOKEN, token!);
-      createNewUserOnServer(token);
+      await createNewUserOnServer(token);
     });
   }
   packageInfo = await PackageInfo.fromPlatform();
@@ -68,21 +69,32 @@ void main() async {
   ));
 }
 
-void createNewUserOnServer(String token) {
+Future<void> createNewUserOnServer(String token) async {
   FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
   analytics.logEvent(name: "New User Registered");
 
   var userCollection = FirebaseFirestore.instance.collection("Users");
 
-  userCollection.add({
-    "deviceToken": token,
-    "userName": token,
-    "timestamp": DateTime.now(),
-    "high_score": getHighestScore(),
-  }).then((value) {
-    LocalData.saveString(DatabaseKeys().userID, value.id);
-  });
+  if (LocalData.contains(DatabaseKeys().userID)) {
+    var userId = LocalData.getString(DatabaseKeys().userID);
+    await userCollection.doc(userId).update({
+      "deviceToken": token,
+      "high_score": getHighestScore(),
+      "userName":MainUtils().getUsername(),
+    }).then((value) {
+      LocalData.saveString(DatabaseKeys().userID, userId);
+    });
+  } else {
+    await userCollection.add({
+      "deviceToken": token,
+      "userName": "NA",
+      "timestamp": DateTime.now(),
+      "high_score": getHighestScore(),
+    }).then((value) {
+      LocalData.saveString(DatabaseKeys().userID, value.id);
+    });
+  }
 }
 
 int getHighestScore() {
