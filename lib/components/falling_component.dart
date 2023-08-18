@@ -6,7 +6,6 @@ import 'package:catch_the_balloons/database/local_data.dart';
 import 'package:catch_the_balloons/game/main_game.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-import 'package:flame/game.dart';
 import 'package:flame_audio/flame_audio.dart';
 
 import '../constants/globals.dart';

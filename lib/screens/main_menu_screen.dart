@@ -64,7 +64,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                               child: Row(
                                 children: [
                                   Image.asset(
-                                    "assets/images/" + Globals.user_icon,
+                                    "assets/images/${Globals.user_icon}",
                                     height: 40,
                                     width: 40,
                                   ),
@@ -92,7 +92,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                                     child: Padding(
                                       padding: const EdgeInsets.all(5.0),
                                       child: Image.asset(
-                                        "assets/images/" + Globals.edit_icon,
+                                        "assets/images/${Globals.edit_icon}",
                                         height: 25,
                                         width: 25,
                                       ),
@@ -111,7 +111,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                                 child: Container(
                                   padding: const EdgeInsets.all(5),
                                   child: Image.asset(
-                                    "assets/images/" + Globals.setting_icon,
+                                    "assets/images/${Globals.setting_icon}",
                                     height: 40,
                                     width: 40,
                                   ),
@@ -122,14 +122,13 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                         ),
                         InkWell(
                           onTap: () {
-                            //ONTAP
                             showLeaderboardPopup(context);
                           },
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
                                 vertical: 5, horizontal: 20),
                             child: Image.asset(
-                              "assets/images/" + Globals.leaderboard_icon,
+                              "assets/images/${Globals.leaderboard_icon}",
                               height: 40,
                               width: 40,
                             ),
@@ -296,7 +295,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
       context: context,
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
-        return LeaderboardPopup();
+        return const LeaderboardPopup();
       },
     );
   }

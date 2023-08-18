@@ -52,9 +52,9 @@ class _UsernamePopupState extends State<UsernamePopup> {
                       Navigator.of(context).pop();
                     },
                     child: Padding(
-                      padding: EdgeInsets.all(5),
+                      padding: const EdgeInsets.all(5),
                       child: Image.asset(
-                        "assets/images/" + Globals.cross_icon,
+                        "assets/images/${Globals.cross_icon}",
                         height: 40,
                         width: 40,
                       ),
@@ -62,7 +62,7 @@ class _UsernamePopupState extends State<UsernamePopup> {
               ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
           Container(
@@ -72,7 +72,7 @@ class _UsernamePopupState extends State<UsernamePopup> {
                 color: GameColors.cyanColor),
             child: TextField(
               controller: usernameController,
-              decoration: InputDecoration(border: InputBorder.none),
+              decoration: const InputDecoration(border: InputBorder.none),
               style: GoogleFonts.montserrat(
                   textStyle: const TextStyle(
                       fontSize: 16,
@@ -80,7 +80,7 @@ class _UsernamePopupState extends State<UsernamePopup> {
                       fontWeight: FontWeight.w500)),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
           SmallSizedButton(
@@ -107,7 +107,7 @@ class _UsernamePopupState extends State<UsernamePopup> {
 
               Navigator.of(context).pop();
             },
-            padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
             color: GameColors.cyanColor,
           ),
         ],

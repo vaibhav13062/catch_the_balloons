@@ -82,11 +82,11 @@ class MainGame extends FlameGame with HasCollisionDetection {
   }
 
   void replay() {
-    children.forEach((element) {
+    for (var element in children) {
       if (element is FallingComponent) {
         element.removeFromParent();
       }
-    });
+    }
     missedObjects = 0;
     resumeEngine();
 

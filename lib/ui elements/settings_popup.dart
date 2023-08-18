@@ -43,9 +43,9 @@ class _SettingsPopupState extends State<SettingsPopup> {
                        Navigator.of(context).pop();
                     },
                     child: Padding(
-                      padding: EdgeInsets.all(5),
+                      padding: const EdgeInsets.all(5),
                       child: Image.asset(
-                        "assets/images/" + Globals.cross_icon,
+                        "assets/images/${Globals.cross_icon}",
                         height: 40,
                         width: 40,
                       ),
@@ -63,7 +63,7 @@ class _SettingsPopupState extends State<SettingsPopup> {
               Row(
                 children: [
                   Image.asset(
-                    "assets/images/" + Globals.music_icon,
+                    "assets/images/${Globals.music_icon}",
                     height: 40,
                     width: 40,
                   ),
@@ -94,7 +94,7 @@ class _SettingsPopupState extends State<SettingsPopup> {
               Row(
                 children: [
                   Image.asset(
-                    "assets/images/" + Globals.sound_icon,
+                    "assets/images/${Globals.sound_icon}",
                     height: 40,
                     width: 40,
                   ),
@@ -133,7 +133,7 @@ class _SettingsPopupState extends State<SettingsPopup> {
                 child: Row(
                   children: [
                     Image.asset(
-                      "assets/images/" + Globals.terms_icon,
+                      "assets/images/${Globals.terms_icon}",
                       height: 40,
                       width: 40,
                     ),
@@ -166,7 +166,7 @@ class _SettingsPopupState extends State<SettingsPopup> {
                 child: Row(
                   children: [
                     Image.asset(
-                      "assets/images/" + Globals.privacy_icon,
+                      "assets/images/${Globals.privacy_icon}",
                       height: 40,
                       width: 40,
                     ),

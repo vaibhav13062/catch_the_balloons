@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:ui';
 
 import 'package:auto_size_text/auto_size_text.dart';
@@ -8,6 +10,7 @@ import 'package:catch_the_balloons/database/database_keys.dart';
 import 'package:catch_the_balloons/database/local_data.dart';
 import 'package:catch_the_balloons/game/main_game.dart';
 import 'package:catch_the_balloons/screens/main_menu_screen.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -145,7 +148,9 @@ class _GameOverScreenState extends State<GameOverScreen> {
                                   ?.dispose();
                               Provider.of<AdsProvider>(context, listen: false)
                                   .loadRewardedAd();
-                              print("REARD AWARDED");
+                              if (kDebugMode) {
+                                print("REWARD AWARDED");
+                              }
                             });
                           }
                 

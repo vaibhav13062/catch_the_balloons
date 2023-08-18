@@ -6,11 +6,7 @@ import 'package:flame/events.dart';
 
 class CharacterComponent extends SpriteComponent
     with HasGameRef<MainGame>, DragCallbacks {
-  // ignore: unnecessary_overrides
-  @override
-  void onDragStart(DragStartEvent event) {
-    super.onDragStart(event);
-  }
+
 
   @override
   void onDragUpdate(DragUpdateEvent event) {
@@ -21,10 +17,6 @@ class CharacterComponent extends SpriteComponent
   }
 
   // ignore: unnecessary_overrides
-  @override
-  void onDragEnd(DragEndEvent event) {
-    super.onDragEnd(event);
-  }
 
   @override
   Future<void> onLoad() async {

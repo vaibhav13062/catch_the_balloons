@@ -2,8 +2,6 @@ import 'package:catch_the_balloons/constants/colors.dart';
 import 'package:catch_the_balloons/constants/globals.dart';
 import 'package:catch_the_balloons/database/database_keys.dart';
 import 'package:catch_the_balloons/database/local_data.dart';
-import 'package:catch_the_balloons/main_utils.dart';
-import 'package:catch_the_balloons/ui%20elements/small_sized_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -49,9 +47,9 @@ class _LeaderboardPopupState extends State<LeaderboardPopup> {
                     Navigator.of(context).pop();
                   },
                   child: Padding(
-                    padding: EdgeInsets.all(5),
+                    padding: const EdgeInsets.all(5),
                     child: Image.asset(
-                      "assets/images/" + Globals.cross_icon,
+                      "assets/images/${Globals.cross_icon}",
                       height: 40,
                       width: 40,
                     ),
@@ -75,7 +73,7 @@ class _LeaderboardPopupState extends State<LeaderboardPopup> {
         .orderBy("high_score", descending: true)
         .limit(100);
     usersRef.get().then((value) {
-      value.docs.forEach((element) {
+      for (var element in value.docs) {
         setState(() {
           widgetList.add(Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
@@ -102,8 +100,7 @@ class _LeaderboardPopupState extends State<LeaderboardPopup> {
             ),
           ));
         });
-      });
-      print(value.docs.length);
+      }
     });
   }
 
