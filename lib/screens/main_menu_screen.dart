@@ -7,6 +7,7 @@ import 'package:catch_the_balloons/database/database_keys.dart';
 import 'package:catch_the_balloons/database/local_data.dart';
 import 'package:catch_the_balloons/main_utils.dart';
 import 'package:catch_the_balloons/screens/game_screen.dart';
+import 'package:catch_the_balloons/ui%20elements/leaderboard_popup.dart';
 import 'package:catch_the_balloons/ui%20elements/settings_popup.dart';
 import 'package:catch_the_balloons/ui%20elements/username_popup.dart';
 import 'package:flutter/material.dart';
@@ -50,67 +51,87 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                 alignment: Alignment.center,
                 children: [
                   Align(
-                    alignment: Alignment.topRight,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                    alignment: Alignment.topCenter,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: Row(
-                            children: [
-                              Image.asset(
-                                "assets/images/" + Globals.user_icon,
-                                height: 40,
-                                width: 40,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(10),
+                              child: Row(
+                                children: [
+                                  Image.asset(
+                                    "assets/images/" + Globals.user_icon,
+                                    height: 40,
+                                    width: 40,
+                                  ),
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  Text(
+                                    MainUtils().getUsername(),
+                                    style: GoogleFonts.montserrat(
+                                      textStyle: const TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w700,
+                                          color: GameColors.blackColor),
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      //USERNAME CHANGE POPUP
+                                      showUsernamePopup(context);
+                                    },
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(5.0),
+                                      child: Image.asset(
+                                        "assets/images/" + Globals.edit_icon,
+                                        height: 25,
+                                        width: 25,
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              Text(
-                                MainUtils().getUsername(),
-                                style: GoogleFonts.montserrat(
-                                  textStyle: const TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w700,
-                                      color: GameColors.blackColor),
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              InkWell(
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: InkWell(
                                 onTap: () {
-                                  //USERNAME CHANGE POPUP
-                                  showUsernamePopup(context);
+                                  //SETTINGS POPUP
+                                  showMySettingPopup(context);
                                 },
-                                child: Padding(
-                                  padding: const EdgeInsets.all(5.0),
+                                child: Container(
+                                  padding: const EdgeInsets.all(5),
                                   child: Image.asset(
-                                    "assets/images/" + Globals.edit_icon,
-                                    height: 25,
-                                    width: 25,
+                                    "assets/images/" + Globals.setting_icon,
+                                    height: 40,
+                                    width: 40,
                                   ),
                                 ),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: InkWell(
-                            onTap: () {
-                              //SETTINGS POPUP
-                              showMySettingPopup(context);
-                            },
-                            child: Container(
-                              padding: const EdgeInsets.all(5),
-                              child: Image.asset(
-                                "assets/images/" + Globals.setting_icon,
-                                height: 40,
-                                width: 40,
-                              ),
+                        InkWell(
+                          onTap: () {
+                            //ONTAP
+                            showLeaderboardPopup(context);
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 5, horizontal: 20),
+                            child: Image.asset(
+                              "assets/images/" + Globals.leaderboard_icon,
+                              height: 40,
+                              width: 40,
                             ),
                           ),
                         ),
@@ -268,6 +289,16 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
     ).then((value) {
       setState(() {});
     });
+  }
+
+  Future<void> showLeaderboardPopup(BuildContext context) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return LeaderboardPopup();
+      },
+    );
   }
 
   Future<void> showMySettingPopup(BuildContext context) async {
