@@ -48,7 +48,7 @@ void main() async {
   } else {
     FirebaseMessaging firebaseMessaging =
         FirebaseMessaging.instance; // Change here
-    await firebaseMessaging.getToken().then((token) async {
+     firebaseMessaging.getToken().then((token) async {
       if (kDebugMode) {
         print("token is $token");
       }
@@ -78,7 +78,7 @@ Future<void> createNewUserOnServer(String token) async {
 
   if (LocalData.contains(DatabaseKeys().userID)) {
     var userId = LocalData.getString(DatabaseKeys().userID);
-    await userCollection.doc(userId).update({
+     userCollection.doc(userId).update({
       "deviceToken": token,
       "high_score": getHighestScore(),
       "userName":MainUtils().getUsername(),
@@ -86,7 +86,7 @@ Future<void> createNewUserOnServer(String token) async {
       LocalData.saveString(DatabaseKeys().userID, userId);
     });
   } else {
-    await userCollection.add({
+     userCollection.add({
       "deviceToken": token,
       "userName": "NA",
       "timestamp": DateTime.now(),
