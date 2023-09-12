@@ -18,6 +18,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class MainGame extends FlameGame with HasCollisionDetection {
+  StreamController onDeactivateController;
+
+  MainGame({required this.onDeactivateController});
+
   int gameScore = 0;
   double velocity = 4;
   int objectsCount = 4;
@@ -25,9 +29,18 @@ class MainGame extends FlameGame with HasCollisionDetection {
   late TextComponent _scoreText;
   late Timer _timer;
 
+
+
   @override
   Future<void> onLoad() async {
     await super.onLoad();
+
+
+    onDeactivateController.stream.listen((event) {
+      if(event && !paused){
+        pauseGame();
+      }
+    });
 
     add(BackgroundComponent());
     add(PauseButtonComponent());

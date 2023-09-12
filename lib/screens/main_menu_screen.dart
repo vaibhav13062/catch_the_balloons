@@ -259,6 +259,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
           });
         },
         onAdFailedToLoad: (ad, err) {
+          print("Banner Ads: "+err.message);
           _isBannerAdReady = false;
           ad.dispose();
         },

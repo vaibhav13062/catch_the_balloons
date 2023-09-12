@@ -25,7 +25,9 @@ void main() async {
     DeviceOrientation.portraitDown,
   ]);
   await Firebase.initializeApp();
-  MobileAds.instance.initialize();
+  await MobileAds.instance.initialize();
+  MobileAds.instance.updateRequestConfiguration(
+      RequestConfiguration(testDeviceIds: ["85667F80-69FF-4839-8B62-BDBC0D4CAAF1"]));
   await Hive.initFlutter();
   FlameAudio.bgm.initialize();
   await Hive.openBox('DefaultDB');
@@ -48,7 +50,7 @@ void main() async {
   } else {
     FirebaseMessaging firebaseMessaging =
         FirebaseMessaging.instance; // Change here
-     firebaseMessaging.getToken().then((token) async {
+    firebaseMessaging.getToken().then((token) async {
       if (kDebugMode) {
         print("token is $token");
       }
@@ -78,15 +80,15 @@ Future<void> createNewUserOnServer(String token) async {
 
   if (LocalData.contains(DatabaseKeys().userID)) {
     var userId = LocalData.getString(DatabaseKeys().userID);
-     userCollection.doc(userId).update({
+    userCollection.doc(userId).update({
       "deviceToken": token,
       "high_score": getHighestScore(),
-      "userName":MainUtils().getUsername(),
+      "userName": MainUtils().getUsername(),
     }).then((value) {
       LocalData.saveString(DatabaseKeys().userID, userId);
     });
   } else {
-     userCollection.add({
+    userCollection.add({
       "deviceToken": token,
       "userName": "NA",
       "timestamp": DateTime.now(),

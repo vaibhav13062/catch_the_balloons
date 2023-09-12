@@ -8,7 +8,7 @@ class AdsHelper {
     if (Platform.isAndroid) {
       return 'ca-app-pub-6966853236033666/6211559941';
     } else if (Platform.isIOS) {
-      return 'ca-app-pub-6966853236033666/9358212436';
+      return 'ca-app-pub-6966853236033666/6604133536';
     } else {
       throw UnsupportedError('Unsupported platform');
     }
@@ -18,7 +18,7 @@ class AdsHelper {
     if (Platform.isAndroid) {
       return 'ca-app-pub-6966853236033666/9030646048';
     } else if (Platform.isIOS) {
-      return 'ca-app-pub-6966853236033666~5519039771';
+      return 'ca-app-pub-6966853236033666/4843247731';
     } else {
       throw UnsupportedError('Unsupported platform');
     }
@@ -28,7 +28,7 @@ class AdsHelper {
     if (Platform.isAndroid) {
       return 'ca-app-pub-6966853236033666/2816854811';
     } else if (Platform.isIOS) {
-      return 'ca-app-pub-6966853236033666/1503773146';
+      return 'ca-app-pub-6966853236033666/2609048206';
     } else {
       throw UnsupportedError('Unsupported platform');
     }
